@@ -1,12 +1,8 @@
-import json
-
+from bookmarks.services import add_bookmark, remove_bookmark, has_a_bookmark
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import View
-
-from bookmarks.services import add_bookmark, remove_bookmark, has_a_bookmark
 from posts.models import Post
 
 User = get_user_model()
@@ -26,4 +22,3 @@ class BookmarkAddOrRemove(View):
         return JsonResponse({"bookmark": bookmark,
                              "count": post.bookmarks.count()
                              }, status=200)
-

@@ -1,7 +1,6 @@
+from bookmarks import services
 from django import template
 from django.contrib.auth import get_user_model
-
-from bookmarks import services
 
 User = get_user_model()
 register = template.Library()

@@ -1,22 +1,11 @@
 from django import template
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
-
-from bookmarks.models import Bookmark
-from likes import services
-from likes.models import Like
-from posts.models import Post
 from django.contrib.auth import get_user_model
-
 from posts import views
-from bookmarks import services
+from posts.models import Post
 
 User = get_user_model()
 
 register = template.Library()
-
-
-# from_time = int(from_time)
 
 
 @register.simple_tag

@@ -1,19 +1,17 @@
 import datetime as dt
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.postgres.search import SearchVector, SearchQuery, \
-    SearchRank
+from django.contrib.postgres.search import (SearchVector, SearchQuery,
+                                            SearchRank)
 from django.core.paginator import Paginator
 from django.db.models import Count, Sum
 from django.shortcuts import render, get_object_or_404, redirect
-from taggit.models import Tag
-
 from likes import services
 from likes.models import Like
 from posts.forms import PostForm, CommentForm, SearchForm
 from posts.models import Post, Group, Comment, Follow, GroupFollow
+from taggit.models import Tag
 
 User = get_user_model()
 
@@ -146,9 +144,6 @@ def year(request):
 
 # @cache_page(0)
 def profile(request, username):
-    # posts = Post.objects.published().filter(author__username=username).annotate(
-    #     posts_most_likes=Sum('likes__vote')).order_by(
-    #     'posts_most_likes').select_related('author')
     user = get_object_or_404(User, username=username)
 
     posts = Post.objects.published().filter(
@@ -163,7 +158,7 @@ def profile(request, username):
     try:
         following = get_object_or_404(Follow, user=request.user,
                                       author__username=username)
-    except:
+    except Exception as e:
         following = False
 
     context = {
@@ -194,7 +189,7 @@ def post_view(request, username, post_id):
     try:
         following = get_object_or_404(Follow, user=request.user,
                                       author__username=username)
-    except:
+    except Exception as e:
         following = False
 
     #  Список похожих постов
@@ -323,7 +318,6 @@ def edit_comment(request, username, post_id, comment_id):
 
 
 def delete_comment(request, username, post_id, comment_id):
-    post = get_object_or_404(Post, author__username=username, pk=post_id)
     comment = get_object_or_404(Comment, author=request.user,
                                 post=post_id, pk=comment_id)
 
@@ -335,7 +329,7 @@ def delete_comment(request, username, post_id, comment_id):
 
 def page_not_found(request, exception):
     # Переменная exception содержит отладочную информацию,
-    # выводить её в шаблон пользователской страницы 404 мы не станем
+    # выводить её в шаблон пользовательской страницы 404 мы не станем
     return render(
         request,
         "misc/404.html",
@@ -350,7 +344,7 @@ def server_error(request):
 
 @login_required
 def follow_index(request):
-    #  Сортировка по количесту лайков
+    #  Сортировка по количеству лайков
 
     # selected_authors_list = Post.objects.published().filter(
     #     author__following__user=request.user).annotate(

@@ -1,18 +1,17 @@
+from bookmarks.models import Bookmark
+from bookmarks.services import has_a_bookmark
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from likes.models import Like
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from pytils import translit
 from taggit.managers import TaggableManager
 from taggit.models import Tag, TaggedItem
-
-from bookmarks.models import Bookmark
-from bookmarks.services import has_a_bookmark
-from likes.models import Like
 
 User = get_user_model()
 
@@ -79,7 +78,6 @@ class Post(models.Model):
     likes = GenericRelation(Like, related_query_name='posts')
     bookmarks = GenericRelation(Bookmark, related_query_name='posts')
 
-    # objects = models.Manager()
     objects = PublishedManager()
 
     def in_favorites(self, user):

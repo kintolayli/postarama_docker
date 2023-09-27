@@ -1,16 +1,13 @@
 # posts/tests/tests_url.py
+import os
 import tempfile
-
+import tempfile
 from PIL import Image
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.test import TestCase, Client
 from django.urls import reverse
-import os
-
-import tempfile
-
 from posts.models import Post, Group, Follow, Comment
 
 User = get_user_model()

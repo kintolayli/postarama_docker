@@ -1,0 +1,21 @@
+DJANGO_SECRET_KEY=h19_22j5chd$l3a&il+*^awy!0qa&a#+wrgduw_e$oti7(0@r4
+VK_CLIENT_ID=7696691
+VK_SECRET=AOQ6B2LDlvqczJb1Jlnd
+VK_KEY=6a13c83c6a13c83c6a13c83cef6a66b90f66a136a13c83c35c77601c362f1c0ded44fdc
+
+DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] testserver 82.146.57.126 postarama.hopto.org web
+DEBUG_VALUE=True
+
+DB_HOST=db
+DB_PORT=5432
+EMAIL_HOST=smtp.gmail.com
+EMAIL_HOST_USER=yastrebnelson@gmail.com
+EMAIL_HOST_PASSWORD=zcndyggljbcybmmi
+EMAIL_PORT=587
+EMAIL_TO=golkiper-leo@yandex.ru
+SENTRY_DSN=https://e66ef262f62249e994097c02303a0c95@o561194.ingest.sentry.io/5697782

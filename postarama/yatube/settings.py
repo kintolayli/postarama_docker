@@ -12,11 +12,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import sentry_sdk
 from distutils.util import strtobool
-from sentry_sdk.integrations.django import DjangoIntegration
+
+import sentry_sdk
 from django.contrib import messages
 from dotenv import load_dotenv
+from sentry_sdk.integrations.django import DjangoIntegration
 
 load_dotenv()
 

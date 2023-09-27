@@ -1,5 +1,5 @@
-from django.urls import path
 from bookmarks import views
+from django.urls import path
 
 urlpatterns = [
     # #  Добавление или удаление закладки
