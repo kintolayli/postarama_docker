@@ -8,7 +8,5 @@ register = template.Library()
 
 @register.simple_tag
 def get_users_who_added_a_bookmark(obj):
-    """Получает всех пользователей, которые добавили в закладки `obj`.
-    """
-    query = services.get_users_who_added_a_bookmark(obj)
-    return query
+    """Получает всех пользователей, которые добавили в закладки `obj`."""
+    return services.get_users_who_added_a_bookmark(obj)

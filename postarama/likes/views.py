@@ -1,26 +1,23 @@
-from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import View
-
 from likes.models import Like
-from likes.services import add_like, add_dislike, is_fan
-from posts.models import Post, Comment
+from likes.services import add_dislike, add_like, is_fan
+from posts.models import Comment, Post
 
 User = get_user_model()
 
-RATING_UP_MESSAGE = 'Вы увеличили рейтинг публикации'
-RATING_DOWN_MESSAGE = 'Вы понизили рейтинг публикации'
+RATING_UP_MESSAGE = "Вы увеличили рейтинг публикации"
+RATING_DOWN_MESSAGE = "Вы понизили рейтинг публикации"
 
 
 class PostRatingUpDown(LoginRequiredMixin, View):
     vote_type = None  # Тип Like/Dislike
 
     def post(self, request, username, post_id):
-        obj = get_object_or_404(Post, author__username=username,
-                                pk=post_id)
+        obj = get_object_or_404(Post, author__username=username, pk=post_id)
         user = request.user
 
         if self.vote_type == Like.LIKE:
@@ -31,9 +28,14 @@ class PostRatingUpDown(LoginRequiredMixin, View):
         user_is_fan = is_fan(obj, user, Like.LIKE)
         user_is_hater = is_fan(obj, user, Like.DISLIKE)
 
-        return JsonResponse({"sum_rating": obj.likes.sum_rating(),
-                             "user_is_fan": user_is_fan,
-                             "user_is_hater": user_is_hater}, status=200)
+        return JsonResponse(
+            {
+                "sum_rating": obj.likes.sum_rating(),
+                "user_is_fan": user_is_fan,
+                "user_is_hater": user_is_hater,
+            },
+            status=200,
+        )
 
 
 class CommentRatingUpDown(LoginRequiredMixin, View):
@@ -51,6 +53,11 @@ class CommentRatingUpDown(LoginRequiredMixin, View):
         user_is_fan = is_fan(obj, user, Like.LIKE)
         user_is_hater = is_fan(obj, user, Like.DISLIKE)
 
-        return JsonResponse({"sum_rating": obj.likes.sum_rating(),
-                             "user_is_fan": user_is_fan,
-                             "user_is_hater": user_is_hater}, status=200)
+        return JsonResponse(
+            {
+                "sum_rating": obj.likes.sum_rating(),
+                "user_is_fan": user_is_fan,
+                "user_is_hater": user_is_hater,
+            },
+            status=200,
+        )

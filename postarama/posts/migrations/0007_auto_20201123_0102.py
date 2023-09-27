@@ -4,20 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('posts', '0006_auto_20201123_0052'),
+        ("posts", "0006_auto_20201123_0052"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='comment',
-            managers=[
-            ],
+            name="comment",
+            managers=[],
         ),
         migrations.AlterModelManagers(
-            name='post',
-            managers=[
-            ],
+            name="post",
+            managers=[],
         ),
     ]

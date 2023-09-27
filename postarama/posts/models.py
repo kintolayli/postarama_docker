@@ -2,7 +2,6 @@ from bookmarks.models import Bookmark
 from bookmarks.services import has_a_bookmark
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -35,12 +34,10 @@ class RuTaggedItem(TaggedItem):
 
 class PublishedManager(models.Manager):
     def published(self):
-        return super(PublishedManager,
-                     self).get_queryset().filter(status='published')
+        return super(PublishedManager, self).get_queryset().filter(status="published")
 
     def unpublished(self):
-        return super(PublishedManager,
-                     self).get_queryset().filter(status='draft')
+        return super(PublishedManager, self).get_queryset().filter(status="draft")
 
 
 class Group(models.Model):
@@ -54,29 +51,30 @@ class Group(models.Model):
 
 class Post(models.Model):
     STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
+        ("draft", "Draft"),
+        ("published", "Published"),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250,
-                            unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name="posts")
+    slug = models.SlugField(max_length=250, unique_for_date="publish")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     # text = models.TextField(verbose_name='Текст')
     text = MarkdownxField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10,
-                              choices=STATUS_CHOICES,
-                              default='draft')
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL,
-                              blank=True, null=True, verbose_name='Группа',
-                              related_name="posts")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    group = models.ForeignKey(
+        Group,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Группа",
+        related_name="posts",
+    )
     tags = TaggableManager(through=RuTaggedItem)
-    image = models.ImageField(upload_to='posts/', blank=True, null=True)
-    likes = GenericRelation(Like, related_query_name='posts')
-    bookmarks = GenericRelation(Bookmark, related_query_name='posts')
+    image = models.ImageField(upload_to="posts/", blank=True, null=True)
+    likes = GenericRelation(Like, related_query_name="posts")
+    bookmarks = GenericRelation(Bookmark, related_query_name="posts")
 
     objects = PublishedManager()
 
@@ -91,57 +89,54 @@ class Post(models.Model):
         return markdownify(self.text)
 
     def get_absolute_url(self):
-        return reverse('post',
-                       args=[self.author.username,
-                             self.id])
+        return reverse("post", args=[self.author.username, self.id])
 
     class Meta:
-        ordering = ['-updated']
+        ordering = ["-updated"]
 
     def __str__(self):
         return self.title
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post,
-                             on_delete=models.CASCADE,
-                             related_name='comments')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     text = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    likes = GenericRelation(Like, related_query_name='comments')
+    likes = GenericRelation(Like, related_query_name="comments")
 
-    parent = models.ForeignKey('self', default=None, blank=True, null=True,
-                               on_delete=models.CASCADE,
-                               related_name='parent_%(class)s',
-                               verbose_name='parent comment'
-                               )
+    parent = models.ForeignKey(
+        "self",
+        default=None,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="parent_%(class)s",
+        verbose_name="parent comment",
+    )
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ("-created",)
 
     def __str__(self):
-        return f'Comment by {self.author.username} on {self.post} - {self.text}'
+        return f"Comment by " f"{self.author.username} on {self.post} - {self.text}"
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='follower')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='following')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
 
     class Meta:
-        unique_together = ('user', 'author')
+        unique_together = ("user", "author")
 
 
 class GroupFollow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='group_follower')
-    group = models.ForeignKey(Group, on_delete=models.CASCADE,
-                              related_name='followers')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="group_follower"
+    )
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="followers")
 
     class Meta:
-        unique_together = ('user', 'group')
+        unique_together = ("user", "group")

@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('posts', '0007_auto_20201123_0102'),
+        ("posts", "0007_auto_20201123_0102"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='comment',
-            options={'ordering': ('-updated',)},
+            name="comment",
+            options={"ordering": ("-updated",)},
         ),
         migrations.AddField(
-            model_name='comment',
-            name='text2',
-            field=models.TextField(default='', max_length=500),
+            model_name="comment",
+            name="text2",
+            field=models.TextField(default="", max_length=500),
         ),
     ]

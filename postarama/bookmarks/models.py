@@ -10,19 +10,25 @@ class BookmarkManager(models.Manager):
     use_for_related_fields = True
 
     def posts(self):
-        return self.get_queryset().filter(
-            content_type__model='post').order_by('-post__updated')
+        return (
+            self.get_queryset()
+            .filter(content_type__model="post")
+            .order_by("-post__updated")
+        )
 
     def get_bookmark_count(self):
         return self.get_queryset().all().count()
 
 
 class Bookmark(models.Model):
-    user = models.ForeignKey(User, verbose_name='Пользователь',
-                             on_delete=models.CASCADE,
-                             related_name='bookmarks')
+    user = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        related_name="bookmarks",
+    )
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey("content_type", "object_id")
 
     objects = BookmarkManager()

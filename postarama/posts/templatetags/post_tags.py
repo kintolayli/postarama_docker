@@ -10,10 +10,8 @@ register = template.Library()
 
 @register.simple_tag
 def search(request):
-    """Получает всех пользователей, которые дизлайкнули `obj`.
-    """
-    query = views.post_search(request)
-    return query
+    """Получает всех пользователей, которые дизлайкнули `obj`."""
+    return views.post_search(request)
 
 
 @register.filter
@@ -28,5 +26,4 @@ def user_bookmarks(user):
 
 @register.filter
 def published_post_count(user):
-    posts = Post.objects.published().filter(author=user).count()
-    return posts
+    return Post.objects.published().filter(author=user).count()

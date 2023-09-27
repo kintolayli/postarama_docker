@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('likes', '0002_like_vote'),
+        ("likes", "0002_like_vote"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='like',
-            name='vote',
-            field=models.SmallIntegerField(choices=[(-1, 'Не нравится'), (1, 'Нравится')]),
+            model_name="like",
+            name="vote",
+            field=models.SmallIntegerField(
+                choices=[(-1, "Не нравится"), (1, "Нравится")]
+            ),
         ),
     ]
