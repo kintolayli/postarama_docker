@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Профиль пользователя {{ username }} | Пост {{ post.id }}{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+{% load user_filters %}
+
+{% include "blocks/post_item_likes.html" with post=post %}
+
+<div class="row">
+    <div class="col-xl-1 col-lg-1 col-md-auto">
+    </div>
+
+    <div class="col-xl-11 col-lg-11 col-md-auto">
+
+            <!-- Блок с рекомендацией публикаций -->
+            {% if similar_posts %}
+                <h5 class="card-text text-muted">Похожие публикации:</h5>
+                <div class="card mb-3 mt-1 shadow-sm">
+                    {% for post in similar_posts %}
+                        {% include "blocks/post_header.html" with post=post %}
+                        {%  if not forloop.last %}
+                            <div><hr></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% include "blocks/comment_form.html" with post=post%}
+
+            <!-- Комментарии -->
+
+                {% for item in comments %}
+
+                    {% include "blocks/comment_item.html" with item=item %}
+{#                            {%  if not forloop.last %}#}
+{#                                <hr>#}
+{#                            {% endif %}#}
+                {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load user_filters %}
+
+{% block title %}Профиль пользователя {{ username }}{% endblock %}
+{% block header %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xl-1 col-lg-1 col-md-auto">
+        </div>
+
+        <div class="col-xl-11 col-lg-11 col-md-auto">
+            {% include "blocks/user_stats.html" %}
+        </div>
+    </div>
+
+    {% for post in page %}
+        {% include "blocks/post_item_likes.html" with post=post %}
+    {% endfor %}
+
+    {% if page.has_other_pages %}
+        {% include "blocks/paginator.html" with items=page paginator=paginator%}
+    {% endif %}
+
+    <script>
+        new Readmore('article', {
+        speed: 200,
+        collapsedHeight: 200,
+        heightMargin: 100, //  in pixels, avoids collapsing blocks that are only slightly larger than collapsedHeight
+        moreLink: '<a href="#">Читать далее</a>',
+        lessLink: '<a href="#" id="less_link"></a>',
+    });
+    </script>
+
+{% endblock %}

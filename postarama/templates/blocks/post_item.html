@@ -1,0 +1,84 @@
+{% load likes_tags %}
+{% load pytils_numeral %}
+{% load post_tags %}
+{% load bookmarks_tags %}
+
+<div class="card mb-1 mt-1 shadow-sm">
+    {% include "blocks/post_header.html" with post=post %}
+
+    <!-- Отображение картинки -->
+    {% load thumbnail %}
+    {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+        <!-- Magnific Popup -->
+        <a class="image-popup-vertical-fit" style="cursor: zoom-in;" href="{{ MEDIA_URL }}{{ post.image.url }}" title="{{ post.title }}">
+            <img class="card-img" src="{{ im.url }}" alt="image-{post.id}">
+        </a>
+    {% endthumbnail %}
+
+    <!-- Отображение текста поста -->
+    <div class="card-body">
+
+    <article>
+        <p class="card-text">
+            <!-- Текст поста -->
+            {{ post.formatted_markdown|safe }}
+        </p>
+    </article>
+
+    <br>
+
+    <!-- Теги поста -->
+    <p class="tags">
+        {% with post.tags.all as post_tags %}
+            {% for tag in post_tags %}
+                <a href="{% url "index_by_tag" tag.slug %}">
+                    #{{ tag.name }}
+                </a>
+            {% endfor %}
+        {% endwith %}
+    </p>
+    </div>
+
+    <!-- Футер -->
+    <div class="card-footer text-muted">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+
+                <!-- Количество комментариев и ссылка на страницу записи в атрибуте href-->
+                {% if not post_view %}
+                    <a class="btn btn-lg text-muted" href="{% url 'post' post.author.username post.id %}" role="button" title="Комментарий">
+                        {% include "blocks/svg/chat_right.html" %}
+                        {% with post.comments.count as comments_count  %}
+                            {% if comments_count > 0 %}
+                                {{ post.comments.count }}
+                            {% endif %}
+                        {% endwith %}
+                    </a>
+                {% endif %}
+
+                <!-- Добавить в закладки -->
+                <button type="button" class="btn btn-lg text-muted" data-id="{{ post.id }}" data-username={{ post.author.username }}
+                        data-action="bookmark" title="Сохранить в закладках" data-count="bookmark">
+                    {% if post.bookmarks.all|user_in:request.user %}
+                        {% include "blocks/svg/bookmark_fill.html" %}
+                    {% else %}
+                        {% include "blocks/svg/bookmark.html" %}
+                    {% endif %}
+                    {% with post.bookmarks.get_bookmark_count as bookmarks_count %}
+                        {% if bookmarks_count > 0 %}
+                            <span title="В избранном у {{ bookmarks_count|get_plural:"пользователя, пользователей, пользователей" }}">
+                                {{ bookmarks_count }}
+                            </span>
+                        {% endif %}
+                    {% endwith %}
+                </button>
+
+{#                <!-- Поделиться -->#}
+{#                <a class="btn btn-lg text-muted" href="#" role="button" title="Поделиться">#}
+{#                    {% include "blocks/svg/share.html" %}#}
+{#                </a>#}
+
+            </div>
+        </div>
+    </div>
+</div>

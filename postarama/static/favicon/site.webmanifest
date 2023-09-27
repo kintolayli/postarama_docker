@@ -1,0 +1,19 @@
+{
+    "name": "Postarama",
+    "short_name": "Postarama",
+    "icons": [
+        {
+            "src": "/static/favicon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/favicon/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#28b4ff",
+    "background_color": "#28b4ff",
+    "display": "standalone"
+}

@@ -1,0 +1,2895 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.16 (Ubuntu 12.16-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.16 (Ubuntu 12.16-0ubuntu0.20.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: account_emailaddress; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.account_emailaddress (
+    id integer NOT NULL,
+    email character varying(254) NOT NULL,
+    verified boolean NOT NULL,
+    "primary" boolean NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.account_emailaddress OWNER TO kintolayli;
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.account_emailaddress_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_emailaddress_id_seq OWNER TO kintolayli;
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.account_emailaddress_id_seq OWNED BY public.account_emailaddress.id;
+
+
+--
+-- Name: account_emailconfirmation; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.account_emailconfirmation (
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    sent timestamp with time zone,
+    key character varying(64) NOT NULL,
+    email_address_id integer NOT NULL
+);
+
+
+ALTER TABLE public.account_emailconfirmation OWNER TO kintolayli;
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.account_emailconfirmation_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_emailconfirmation_id_seq OWNER TO kintolayli;
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.account_emailconfirmation_id_seq OWNED BY public.account_emailconfirmation.id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO kintolayli;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO kintolayli;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO kintolayli;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO kintolayli;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO kintolayli;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO kintolayli;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO kintolayli;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: bookmarks_bookmark; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.bookmarks_bookmark (
+    id integer NOT NULL,
+    object_id integer NOT NULL,
+    content_type_id integer NOT NULL,
+    user_id integer NOT NULL,
+    CONSTRAINT bookmarks_bookmark_object_id_check CHECK ((object_id >= 0))
+);
+
+
+ALTER TABLE public.bookmarks_bookmark OWNER TO kintolayli;
+
+--
+-- Name: bookmarks_bookmark_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.bookmarks_bookmark_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bookmarks_bookmark_id_seq OWNER TO kintolayli;
+
+--
+-- Name: bookmarks_bookmark_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.bookmarks_bookmark_id_seq OWNED BY public.bookmarks_bookmark.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO kintolayli;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO kintolayli;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_flatpage; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_flatpage (
+    id integer NOT NULL,
+    url character varying(100) NOT NULL,
+    title character varying(200) NOT NULL,
+    content text NOT NULL,
+    enable_comments boolean NOT NULL,
+    template_name character varying(70) NOT NULL,
+    registration_required boolean NOT NULL
+);
+
+
+ALTER TABLE public.django_flatpage OWNER TO kintolayli;
+
+--
+-- Name: django_flatpage_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_flatpage_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_flatpage_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_flatpage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_flatpage_id_seq OWNED BY public.django_flatpage.id;
+
+
+--
+-- Name: django_flatpage_sites; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_flatpage_sites (
+    id integer NOT NULL,
+    flatpage_id integer NOT NULL,
+    site_id integer NOT NULL
+);
+
+
+ALTER TABLE public.django_flatpage_sites OWNER TO kintolayli;
+
+--
+-- Name: django_flatpage_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_flatpage_sites_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_flatpage_sites_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_flatpage_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_flatpage_sites_id_seq OWNED BY public.django_flatpage_sites.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO kintolayli;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO kintolayli;
+
+--
+-- Name: django_site; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.django_site (
+    id integer NOT NULL,
+    domain character varying(100) NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.django_site OWNER TO kintolayli;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.django_site_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_site_id_seq OWNER TO kintolayli;
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.django_site_id_seq OWNED BY public.django_site.id;
+
+
+--
+-- Name: likes_like; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.likes_like (
+    id integer NOT NULL,
+    object_id integer NOT NULL,
+    content_type_id integer NOT NULL,
+    user_id integer NOT NULL,
+    vote smallint NOT NULL,
+    CONSTRAINT likes_like_object_id_check CHECK ((object_id >= 0))
+);
+
+
+ALTER TABLE public.likes_like OWNER TO kintolayli;
+
+--
+-- Name: likes_like_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.likes_like_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.likes_like_id_seq OWNER TO kintolayli;
+
+--
+-- Name: likes_like_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.likes_like_id_seq OWNED BY public.likes_like.id;
+
+
+--
+-- Name: posts_comment; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.posts_comment (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    active boolean NOT NULL,
+    author_id integer NOT NULL,
+    post_id integer NOT NULL,
+    parent_id integer
+);
+
+
+ALTER TABLE public.posts_comment OWNER TO kintolayli;
+
+--
+-- Name: posts_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.posts_comment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_comment_id_seq OWNER TO kintolayli;
+
+--
+-- Name: posts_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.posts_comment_id_seq OWNED BY public.posts_comment.id;
+
+
+--
+-- Name: posts_follow; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.posts_follow (
+    id integer NOT NULL,
+    author_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.posts_follow OWNER TO kintolayli;
+
+--
+-- Name: posts_follow_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.posts_follow_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_follow_id_seq OWNER TO kintolayli;
+
+--
+-- Name: posts_follow_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.posts_follow_id_seq OWNED BY public.posts_follow.id;
+
+
+--
+-- Name: posts_group; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.posts_group (
+    id integer NOT NULL,
+    title character varying(200) NOT NULL,
+    slug character varying(50) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.posts_group OWNER TO kintolayli;
+
+--
+-- Name: posts_group_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.posts_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_group_id_seq OWNER TO kintolayli;
+
+--
+-- Name: posts_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.posts_group_id_seq OWNED BY public.posts_group.id;
+
+
+--
+-- Name: posts_groupfollow; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.posts_groupfollow (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.posts_groupfollow OWNER TO kintolayli;
+
+--
+-- Name: posts_groupfollow_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.posts_groupfollow_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_groupfollow_id_seq OWNER TO kintolayli;
+
+--
+-- Name: posts_groupfollow_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.posts_groupfollow_id_seq OWNED BY public.posts_groupfollow.id;
+
+
+--
+-- Name: posts_post; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.posts_post (
+    id integer NOT NULL,
+    title character varying(250) NOT NULL,
+    slug character varying(250) NOT NULL,
+    text text NOT NULL,
+    publish timestamp with time zone NOT NULL,
+    created timestamp with time zone NOT NULL,
+    updated timestamp with time zone NOT NULL,
+    status character varying(10) NOT NULL,
+    image character varying(100),
+    author_id integer NOT NULL,
+    group_id integer
+);
+
+
+ALTER TABLE public.posts_post OWNER TO kintolayli;
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.posts_post_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.posts_post_id_seq OWNER TO kintolayli;
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.posts_post_id_seq OWNED BY public.posts_post.id;
+
+
+--
+-- Name: socialaccount_socialaccount; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.socialaccount_socialaccount (
+    id integer NOT NULL,
+    provider character varying(30) NOT NULL,
+    uid character varying(191) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    extra_data text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialaccount OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.socialaccount_socialaccount_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialaccount_id_seq OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.socialaccount_socialaccount_id_seq OWNED BY public.socialaccount_socialaccount.id;
+
+
+--
+-- Name: socialaccount_socialapp; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.socialaccount_socialapp (
+    id integer NOT NULL,
+    provider character varying(30) NOT NULL,
+    name character varying(40) NOT NULL,
+    client_id character varying(191) NOT NULL,
+    secret character varying(191) NOT NULL,
+    key character varying(191) NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialapp OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.socialaccount_socialapp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialapp_id_seq OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.socialaccount_socialapp_id_seq OWNED BY public.socialaccount_socialapp.id;
+
+
+--
+-- Name: socialaccount_socialapp_sites; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.socialaccount_socialapp_sites (
+    id integer NOT NULL,
+    socialapp_id integer NOT NULL,
+    site_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialapp_sites OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.socialaccount_socialapp_sites_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialapp_sites_id_seq OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.socialaccount_socialapp_sites_id_seq OWNED BY public.socialaccount_socialapp_sites.id;
+
+
+--
+-- Name: socialaccount_socialtoken; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.socialaccount_socialtoken (
+    id integer NOT NULL,
+    token text NOT NULL,
+    token_secret text NOT NULL,
+    expires_at timestamp with time zone,
+    account_id integer NOT NULL,
+    app_id integer NOT NULL
+);
+
+
+ALTER TABLE public.socialaccount_socialtoken OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.socialaccount_socialtoken_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.socialaccount_socialtoken_id_seq OWNER TO kintolayli;
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.socialaccount_socialtoken_id_seq OWNED BY public.socialaccount_socialtoken.id;
+
+
+--
+-- Name: taggit_tag; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.taggit_tag (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    slug character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.taggit_tag OWNER TO kintolayli;
+
+--
+-- Name: taggit_tag_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.taggit_tag_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.taggit_tag_id_seq OWNER TO kintolayli;
+
+--
+-- Name: taggit_tag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.taggit_tag_id_seq OWNED BY public.taggit_tag.id;
+
+
+--
+-- Name: taggit_taggeditem; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.taggit_taggeditem (
+    id integer NOT NULL,
+    object_id integer NOT NULL,
+    content_type_id integer NOT NULL,
+    tag_id integer NOT NULL
+);
+
+
+ALTER TABLE public.taggit_taggeditem OWNER TO kintolayli;
+
+--
+-- Name: taggit_taggeditem_id_seq; Type: SEQUENCE; Schema: public; Owner: kintolayli
+--
+
+CREATE SEQUENCE public.taggit_taggeditem_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.taggit_taggeditem_id_seq OWNER TO kintolayli;
+
+--
+-- Name: taggit_taggeditem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kintolayli
+--
+
+ALTER SEQUENCE public.taggit_taggeditem_id_seq OWNED BY public.taggit_taggeditem.id;
+
+
+--
+-- Name: thumbnail_kvstore; Type: TABLE; Schema: public; Owner: kintolayli
+--
+
+CREATE TABLE public.thumbnail_kvstore (
+    key character varying(200) NOT NULL,
+    value text NOT NULL
+);
+
+
+ALTER TABLE public.thumbnail_kvstore OWNER TO kintolayli;
+
+--
+-- Name: account_emailaddress id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailaddress ALTER COLUMN id SET DEFAULT nextval('public.account_emailaddress_id_seq'::regclass);
+
+
+--
+-- Name: account_emailconfirmation id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailconfirmation ALTER COLUMN id SET DEFAULT nextval('public.account_emailconfirmation_id_seq'::regclass);
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: bookmarks_bookmark id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.bookmarks_bookmark ALTER COLUMN id SET DEFAULT nextval('public.bookmarks_bookmark_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_flatpage id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage ALTER COLUMN id SET DEFAULT nextval('public.django_flatpage_id_seq'::regclass);
+
+
+--
+-- Name: django_flatpage_sites id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage_sites ALTER COLUMN id SET DEFAULT nextval('public.django_flatpage_sites_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: django_site id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_site ALTER COLUMN id SET DEFAULT nextval('public.django_site_id_seq'::regclass);
+
+
+--
+-- Name: likes_like id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.likes_like ALTER COLUMN id SET DEFAULT nextval('public.likes_like_id_seq'::regclass);
+
+
+--
+-- Name: posts_comment id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_comment ALTER COLUMN id SET DEFAULT nextval('public.posts_comment_id_seq'::regclass);
+
+
+--
+-- Name: posts_follow id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_follow ALTER COLUMN id SET DEFAULT nextval('public.posts_follow_id_seq'::regclass);
+
+
+--
+-- Name: posts_group id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_group ALTER COLUMN id SET DEFAULT nextval('public.posts_group_id_seq'::regclass);
+
+
+--
+-- Name: posts_groupfollow id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_groupfollow ALTER COLUMN id SET DEFAULT nextval('public.posts_groupfollow_id_seq'::regclass);
+
+
+--
+-- Name: posts_post id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_post ALTER COLUMN id SET DEFAULT nextval('public.posts_post_id_seq'::regclass);
+
+
+--
+-- Name: socialaccount_socialaccount id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialaccount ALTER COLUMN id SET DEFAULT nextval('public.socialaccount_socialaccount_id_seq'::regclass);
+
+
+--
+-- Name: socialaccount_socialapp id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp ALTER COLUMN id SET DEFAULT nextval('public.socialaccount_socialapp_id_seq'::regclass);
+
+
+--
+-- Name: socialaccount_socialapp_sites id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp_sites ALTER COLUMN id SET DEFAULT nextval('public.socialaccount_socialapp_sites_id_seq'::regclass);
+
+
+--
+-- Name: socialaccount_socialtoken id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialtoken ALTER COLUMN id SET DEFAULT nextval('public.socialaccount_socialtoken_id_seq'::regclass);
+
+
+--
+-- Name: taggit_tag id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_tag ALTER COLUMN id SET DEFAULT nextval('public.taggit_tag_id_seq'::regclass);
+
+
+--
+-- Name: taggit_taggeditem id; Type: DEFAULT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_taggeditem ALTER COLUMN id SET DEFAULT nextval('public.taggit_taggeditem_id_seq'::regclass);
+
+
+--
+-- Data for Name: account_emailaddress; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.account_emailaddress (id, email, verified, "primary", user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: account_emailconfirmation; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.account_emailconfirmation (id, created, sent, key, email_address_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add group	1	add_group
+2	Can change group	1	change_group
+3	Can delete group	1	delete_group
+4	Can view group	1	view_group
+5	Can add post	2	add_post
+6	Can change post	2	change_post
+7	Can delete post	2	delete_post
+8	Can view post	2	view_post
+9	Can add comment	3	add_comment
+10	Can change comment	3	change_comment
+11	Can delete comment	3	delete_comment
+12	Can view comment	3	view_comment
+13	Can add follow	4	add_follow
+14	Can change follow	4	change_follow
+15	Can delete follow	4	delete_follow
+16	Can view follow	4	view_follow
+17	Can add ru tag	5	add_rutag
+18	Can change ru tag	5	change_rutag
+19	Can delete ru tag	5	delete_rutag
+20	Can view ru tag	5	view_rutag
+21	Can add ru tagged item	6	add_rutaggeditem
+22	Can change ru tagged item	6	change_rutaggeditem
+23	Can delete ru tagged item	6	delete_rutaggeditem
+24	Can view ru tagged item	6	view_rutaggeditem
+25	Can add group follow	7	add_groupfollow
+26	Can change group follow	7	change_groupfollow
+27	Can delete group follow	7	delete_groupfollow
+28	Can view group follow	7	view_groupfollow
+29	Can add flat page	8	add_flatpage
+30	Can change flat page	8	change_flatpage
+31	Can delete flat page	8	delete_flatpage
+32	Can view flat page	8	view_flatpage
+33	Can add log entry	9	add_logentry
+34	Can change log entry	9	change_logentry
+35	Can delete log entry	9	delete_logentry
+36	Can view log entry	9	view_logentry
+37	Can add content type	10	add_contenttype
+38	Can change content type	10	change_contenttype
+39	Can delete content type	10	delete_contenttype
+40	Can view content type	10	view_contenttype
+41	Can add session	11	add_session
+42	Can change session	11	change_session
+43	Can delete session	11	delete_session
+44	Can view session	11	view_session
+45	Can add permission	12	add_permission
+46	Can change permission	12	change_permission
+47	Can delete permission	12	delete_permission
+48	Can view permission	12	view_permission
+49	Can add group	13	add_group
+50	Can change group	13	change_group
+51	Can delete group	13	delete_group
+52	Can view group	13	view_group
+53	Can add user	14	add_user
+54	Can change user	14	change_user
+55	Can delete user	14	delete_user
+56	Can view user	14	view_user
+57	Can add site	15	add_site
+58	Can change site	15	change_site
+59	Can delete site	15	delete_site
+60	Can view site	15	view_site
+61	Can add kv store	16	add_kvstore
+62	Can change kv store	16	change_kvstore
+63	Can delete kv store	16	delete_kvstore
+64	Can view kv store	16	view_kvstore
+65	Can add tag	17	add_tag
+66	Can change tag	17	change_tag
+67	Can delete tag	17	delete_tag
+68	Can view tag	17	view_tag
+69	Can add tagged item	18	add_taggeditem
+70	Can change tagged item	18	change_taggeditem
+71	Can delete tagged item	18	delete_taggeditem
+72	Can view tagged item	18	view_taggeditem
+73	Can add like	19	add_like
+74	Can change like	19	change_like
+75	Can delete like	19	delete_like
+76	Can view like	19	view_like
+77	Can add bookmark	20	add_bookmark
+78	Can change bookmark	20	change_bookmark
+79	Can delete bookmark	20	delete_bookmark
+80	Can view bookmark	20	view_bookmark
+81	Can add email address	21	add_emailaddress
+82	Can change email address	21	change_emailaddress
+83	Can delete email address	21	delete_emailaddress
+84	Can view email address	21	view_emailaddress
+85	Can add email confirmation	22	add_emailconfirmation
+86	Can change email confirmation	22	change_emailconfirmation
+87	Can delete email confirmation	22	delete_emailconfirmation
+88	Can view email confirmation	22	view_emailconfirmation
+89	Can add social account	23	add_socialaccount
+90	Can change social account	23	change_socialaccount
+91	Can delete social account	23	delete_socialaccount
+92	Can view social account	23	view_socialaccount
+93	Can add social application	24	add_socialapp
+94	Can change social application	24	change_socialapp
+95	Can delete social application	24	delete_socialapp
+96	Can view social application	24	view_socialapp
+97	Can add social application token	25	add_socialtoken
+98	Can change social application token	25	change_socialtoken
+99	Can delete social application token	25	delete_socialtoken
+100	Can view social application token	25	view_socialtoken
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$150000$dAVCApBwOWTl$huK4ojObiiWisa2a0nKAGmjG9oLsrpcdBHG2fVRL8D8=	2023-09-26 17:02:21.878575+03	t	kintolayli			golkiper-leo@yandex.ru	t	t	2023-09-26 03:45:39.725109+03
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: bookmarks_bookmark; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.bookmarks_bookmark (id, object_id, content_type_id, user_id) FROM stdin;
+1	1	2	1
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2023-09-26 04:10:01.603948+03	1	Администрирование и DevOps	1	[{"added": {}}]	1	1
+2	2023-09-26 04:10:30.232201+03	2	Программирование	1	[{"added": {}}]	1	1
+3	2023-09-26 04:11:00.852267+03	3	Python	1	[{"added": {}}]	1	1
+4	2023-09-26 17:04:10.559782+03	4	Полезное в интернете	1	[{"added": {}}]	1	1
+5	2023-09-26 17:07:42.324384+03	1	linux	2	[{"changed": {"fields": ["name"]}}]	17	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	posts	group
+2	posts	post
+3	posts	comment
+4	posts	follow
+5	posts	rutag
+6	posts	rutaggeditem
+7	posts	groupfollow
+8	flatpages	flatpage
+9	admin	logentry
+10	contenttypes	contenttype
+11	sessions	session
+12	auth	permission
+13	auth	group
+14	auth	user
+15	sites	site
+16	thumbnail	kvstore
+17	taggit	tag
+18	taggit	taggeditem
+19	likes	like
+20	bookmarks	bookmark
+21	account	emailaddress
+22	account	emailconfirmation
+23	socialaccount	socialaccount
+24	socialaccount	socialapp
+25	socialaccount	socialtoken
+\.
+
+
+--
+-- Data for Name: django_flatpage; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_flatpage (id, url, title, content, enable_comments, template_name, registration_required) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_flatpage_sites; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_flatpage_sites (id, flatpage_id, site_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2023-09-26 03:43:25.740616+03
+2	auth	0001_initial	2023-09-26 03:43:25.770673+03
+3	account	0001_initial	2023-09-26 03:43:25.803004+03
+4	account	0002_email_max_length	2023-09-26 03:43:25.813536+03
+5	admin	0001_initial	2023-09-26 03:43:25.822354+03
+6	admin	0002_logentry_remove_auto_add	2023-09-26 03:43:25.831526+03
+7	admin	0003_logentry_add_action_flag_choices	2023-09-26 03:43:25.837146+03
+8	contenttypes	0002_remove_content_type_name	2023-09-26 03:43:25.848852+03
+9	auth	0002_alter_permission_name_max_length	2023-09-26 03:43:25.85293+03
+10	auth	0003_alter_user_email_max_length	2023-09-26 03:43:25.858431+03
+11	auth	0004_alter_user_username_opts	2023-09-26 03:43:25.863679+03
+12	auth	0005_alter_user_last_login_null	2023-09-26 03:43:25.869281+03
+13	auth	0006_require_contenttypes_0002	2023-09-26 03:43:25.870393+03
+14	auth	0007_alter_validators_add_error_messages	2023-09-26 03:43:25.876098+03
+15	auth	0008_alter_user_username_max_length	2023-09-26 03:43:25.883338+03
+16	auth	0009_alter_user_last_name_max_length	2023-09-26 03:43:25.889205+03
+17	auth	0010_alter_group_name_max_length	2023-09-26 03:43:25.895648+03
+18	auth	0011_update_proxy_permissions	2023-09-26 03:43:25.901248+03
+19	bookmarks	0001_initial	2023-09-26 03:43:25.90782+03
+20	feedback	0001_initial	2023-09-26 03:43:25.915412+03
+21	feedback	0002_delete_feedback	2023-09-26 03:43:25.917985+03
+22	sites	0001_initial	2023-09-26 03:43:25.922689+03
+23	flatpages	0001_initial	2023-09-26 03:43:25.929794+03
+24	likes	0001_initial	2023-09-26 03:43:25.943936+03
+25	likes	0002_like_vote	2023-09-26 03:43:25.952567+03
+26	likes	0003_auto_20201123_0052	2023-09-26 03:43:25.958217+03
+27	likes	0004_auto_20201123_0106	2023-09-26 03:43:25.969554+03
+28	likes	0005_auto_20201123_0111	2023-09-26 03:43:25.977955+03
+29	taggit	0001_initial	2023-09-26 03:43:25.989474+03
+30	taggit	0002_auto_20150616_2121	2023-09-26 03:43:26.000269+03
+31	taggit	0003_taggeditem_add_unique_index	2023-09-26 03:43:26.005249+03
+32	posts	0001_initial	2023-09-26 03:43:26.038992+03
+33	posts	0002_post_tags	2023-09-26 03:43:26.060239+03
+34	posts	0003_like	2023-09-26 03:43:26.07082+03
+35	posts	0004_auto_20201122_1611	2023-09-26 03:43:26.140664+03
+36	posts	0005_delete_like	2023-09-26 03:43:26.143916+03
+37	posts	0006_auto_20201123_0052	2023-09-26 03:43:26.157562+03
+38	posts	0007_auto_20201123_0102	2023-09-26 03:43:26.171447+03
+39	posts	0008_auto_20201123_0219	2023-09-26 03:43:26.185475+03
+40	posts	0009_remove_comment_text2	2023-09-26 03:43:26.193786+03
+41	posts	0010_auto_20201123_2018	2023-09-26 03:43:26.206951+03
+42	posts	0011_auto_20201201_0226	2023-09-26 03:43:26.223316+03
+43	posts	0012_auto_20201202_0053	2023-09-26 03:43:26.231623+03
+44	posts	0013_auto_20201209_0147	2023-09-26 03:43:26.253785+03
+45	posts	0014_auto_20201209_0148	2023-09-26 03:43:26.271034+03
+46	posts	0015_comment_parent	2023-09-26 03:43:26.280525+03
+47	posts	0016_auto_20201212_0159	2023-09-26 03:43:26.29473+03
+48	posts	0017_auto_20201212_1937	2023-09-26 03:43:26.306742+03
+49	sessions	0001_initial	2023-09-26 03:43:26.3114+03
+50	sites	0002_alter_domain_unique	2023-09-26 03:43:26.31861+03
+51	socialaccount	0001_initial	2023-09-26 03:43:26.363286+03
+52	socialaccount	0002_token_max_lengths	2023-09-26 03:43:26.388922+03
+53	socialaccount	0003_extra_data_default_dict	2023-09-26 03:43:26.394832+03
+54	thumbnail	0001_initial	2023-09-26 03:43:26.399234+03
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+r9rj5h4tkksxyiub21is9uf3lfb6odf9	YWNlZjYzOTViYjU1OWRjMDc5MDIxMmNhMThlZGNjOGI4ODcxYmU5ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMzVkMTM2MWI4ZDVjN2YyNDkwYjUxYTFhNzU4Y2FiM2MwOTA1N2UzIiwiX3Nlc3Npb25fZXhwaXJ5IjowfQ==	2023-10-10 04:00:07.542992+03
+okkqas5n3k4gvkwod203ijng3zto4k3j	YWNlZjYzOTViYjU1OWRjMDc5MDIxMmNhMThlZGNjOGI4ODcxYmU5ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMzVkMTM2MWI4ZDVjN2YyNDkwYjUxYTFhNzU4Y2FiM2MwOTA1N2UzIiwiX3Nlc3Npb25fZXhwaXJ5IjowfQ==	2023-10-10 04:17:26.288055+03
+zffjru2r2nm95xhflqes1cepit2bbg9w	ZjIwMTIxYTVjYjRlZDA1Yjk3MzJiODQ2Yzc2Y2EyNmUyOGJmZDg1ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMzVkMTM2MWI4ZDVjN2YyNDkwYjUxYTFhNzU4Y2FiM2MwOTA1N2UzIiwiX3Nlc3Npb25fZXhwaXJ5IjoxMjA5NjAwfQ==	2023-10-10 15:31:53.617337+03
+2rx90vwpfneg5sgn3chs11jnp91mr4i4	ZjIwMTIxYTVjYjRlZDA1Yjk3MzJiODQ2Yzc2Y2EyNmUyOGJmZDg1ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMzVkMTM2MWI4ZDVjN2YyNDkwYjUxYTFhNzU4Y2FiM2MwOTA1N2UzIiwiX3Nlc3Npb25fZXhwaXJ5IjoxMjA5NjAwfQ==	2023-10-10 15:39:00.061944+03
+i6ragehqe5ogjm78v9o0zfa22kq48myx	MTQwMTAzMmMzNjMyMGFiNDM4YWNkMjFiYTA0ZDJjNjI0NTA4N2Y4MTp7InNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwiY0Q1M2haMGRYYmxzIl19	2023-10-10 16:59:33.600099+03
+rz9l4l82jhpfuoe2q3mbzdqvgh0v8842	ZjIwMTIxYTVjYjRlZDA1Yjk3MzJiODQ2Yzc2Y2EyNmUyOGJmZDg1ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIwMzVkMTM2MWI4ZDVjN2YyNDkwYjUxYTFhNzU4Y2FiM2MwOTA1N2UzIiwiX3Nlc3Npb25fZXhwaXJ5IjoxMjA5NjAwfQ==	2023-10-10 17:02:21.881615+03
+im1fr83czp7h4adaylwov0ok4x6d8ik7	MjI3ODBlM2I2OGJjMzE3OGEwYTYyZjdhMDAxZGRlMzhjNzI3MTdhNzp7InNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwiRnNmYzlUemhRaHZvIl19	2023-10-10 17:03:10.412784+03
+\.
+
+
+--
+-- Data for Name: django_site; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.django_site (id, domain, name) FROM stdin;
+1	example.com	example.com
+\.
+
+
+--
+-- Data for Name: likes_like; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.likes_like (id, object_id, content_type_id, user_id, vote) FROM stdin;
+3	1	2	1	1
+4	1	3	1	1
+5	3	2	1	1
+6	2	2	1	1
+\.
+
+
+--
+-- Data for Name: posts_comment; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.posts_comment (id, text, created, updated, active, author_id, post_id, parent_id) FROM stdin;
+1	Неплохая статья!	2023-09-26 04:18:10.055711+03	2023-09-26 04:18:10.055729+03	t	1	1	\N
+\.
+
+
+--
+-- Data for Name: posts_follow; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.posts_follow (id, author_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: posts_group; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.posts_group (id, title, slug, description) FROM stdin;
+1	Администрирование и DevOps	devops	Группа про администрирование и DevOps
+2	Программирование	programming	Общая группа про программирование
+3	Python	python	Группа про язык программирования Python
+4	Полезное в интернете	usefulthings	Разные ссылки и полезности в интернете
+\.
+
+
+--
+-- Data for Name: posts_groupfollow; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.posts_groupfollow (id, group_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: posts_post; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.posts_post (id, title, slug, text, publish, created, updated, status, image, author_id, group_id) FROM stdin;
+1	Команды для навигации и базовой работы с файлами Linux	komandyi-dlya-navigatsii-i-bazovoj-rabotyi-s-fajlami-linux	**pwd** — вывести полный путь до текущей директории:\r\n\r\n```bash\r\n$ pwd/home/username/dir_name\r\n```\r\n\r\n**ls** — вывести содержимое текущей директории, список всех файлов и папок:\r\n\r\n```bash\r\n$ ls\r\n```\r\n\r\n**ls** */путь_до_директории/имя_директории* — вывести содержимое указанной директории:\r\n\r\n```bash\r\n$ ls /home/username/dir_name_1\r\n```\r\n\r\n**cd** — перейти в корневую директорию:\r\n\r\n```bash\r\n$ cd\r\n```\r\n\r\n**cd** *..* — перейти на один уровень выше от текущей директории:\r\n\r\n```bash\r\n$ cd ..\r\n```\r\n\r\n**cd** *имя_директории* — перейти в одну из директорий, которая содержится в текущей:\r\n\r\n```bash\r\n$ cd dir_name\r\n```\r\n\r\n**cd** */полный_путь_до_директории/имя_директории/* — перейти в нужную директорию по указанному пути:\r\n\r\n```bash\r\n$ cd /home/username/dir_name\r\n```\r\n\r\n**mkdir** *имя_директории* — создать новую директорию в текущей:\r\n\r\n```bash\r\n$ mkdir new_dir_name\r\n```\r\n\r\n**mkdir** */полный_путь_от_корневой_директории/имя_новой_директории/* — создать новую директорию по указанному пути:\r\n\r\n```bash\r\n$ mkdir /home/username/dir_name_1/new_dir_name\r\n```\r\n\r\n**touch** *имя_файла* — создать новый файл в текущей директории:\r\n\r\n```bash\r\n$ touch new_file.txt\r\n```\r\n\r\n**touch** */полный_путь_от_корневой_директории/имя_файла* — создать новый файл по указанному пути:\r\n\r\n```bash\r\n$ touch /home/username/dir_name_1/new_file.txt\r\n```\r\n\r\n**cat** *имя_файла* — вывести содержимое файла в консоль:\r\n\r\n```bash\r\n$ cat new_file.txt\r\n```\r\n\r\n**mv** *текущее_имя_файла новое_имя_файла* — переименовать файл:\r\n\r\n```bash\r\n$ mv old_file.txt new_file.txt\r\n```\r\n\r\n**rm** *имя_файла* — удалить файл:\r\n\r\n```bash\r\n$ rm old_file.txt\r\n```\r\n\r\n**cp** */путь_до_файла/имя_файла /новый_путь_до_файла/имя_файла* — копировать файл из одной директории в другую. При копировании можно задать новое имя файла:\r\n\r\n```bash\r\n$ cp file_name.txt /home/username/dir_name_2/new_file_name.txt\r\n```\r\n\r\n**clear** — очистить всю выведенную в консоль информацию, начать «с чистого листа».	2023-09-26 04:04:41.249041+03	2023-09-26 04:04:41.277663+03	2023-09-26 04:12:08.678158+03	published	posts/i.webp	1	1
+2	Установка и работа с PostgreSQL на сервере linux	ustanovka-i-rabota-s-postgresql-na-servere-linux	sudo apt update\r\n\r\nsudo apt install postgresql postgresql-contrib\r\n\r\n\r\nsudo systemctl start postgresql.service\r\nsudo systemctl status postgresql.service\r\n\r\nsudo -i -u postgres\r\n\r\npsql\r\n\r\n\r\nДля проверки\r\nSELECT 1;\r\n\r\n\r\nсоздаем юзера\r\nCREATE USER mynewuser WITH PASSWORD 'mypassword';\r\n\r\nALTER USER mynewuser WITH SUPERUSER;\r\n\r\n\r\nСоздание базы\r\ncreate database tester;\r\n\r\n\r\nДля выхода\r\n\\q\r\n\r\nвыход на root\r\nexit\r\n\r\n\r\nПо умолчанию, PostgreSQL настроен на прослушивание только соединений с локального хоста.\r\nЕсли вы хотите разрешить подключения к базе данных с любого IP-адреса,\r\nвам потребуется внести изменения в два конфигурационных файла: postgresql.conf и pg_hba.conf.\r\n\r\npostgresql.conf\r\n\r\n\r\nsudo nano /etc/postgresql/{Версия PostgreSQL}/main/postgresql.conf\r\nНайдите строку, которая начинается с #listen_addresses = 'localhost'.\r\nУберите символ # в начале строки, чтобы отменить комментирование, и замените localhost на *:\r\n\r\nlisten_addresses = '*'\r\n\r\n\r\nСохраните и закройте файл.\r\n\r\npg_hba.conf\r\n\r\nЗатем вам нужно обновить файл pg_hba.conf,\r\nчтобы разрешить входящие соединения с любого IP-адреса.\r\nФайл pg_hba.conf также находится в каталоге /etc/postgresql/{Версия PostgreSQL}/main/.\r\n\r\n\r\nsudo nano /etc/postgresql/{Версия PostgreSQL}/main/pg_hba.conf\r\n\r\nДобавьте в конец файла следующую строку:\r\n\r\nhost    all             all             0.0.0.0/0               md5\r\n\r\nЭто позволит любому IP-адресу подключаться к любой базе данных и пользователям,\r\nиспользуя MD5-шифрование для пароля.\r\n\r\nСохраните и закройте файл.\r\n\r\nПерезагрузка PostgreSQL\r\n\r\nsudo systemctl restart postgresql\r\n\r\n______________________________________\r\n\r\nУДАЛЕНИЕ PSQL\r\n\r\nЕсли вы хотите полностью удалить PostgreSQL вместе со всеми его файлами и данными, вы можете выполнить следующие команды:\r\n\r\n1. Удалите пакеты PostgreSQL:\r\n\r\n\r\n   sudo apt-get --purge remove postgresql\\*\r\n\r\n\r\n   Эта команда удалит все пакеты, связанные с PostgreSQL. Флаг `--purge` гарантирует, что конфигурационные файлы также будут удалены.\r\n\r\n2. Удалите оставшиеся каталоги:\r\n\r\n\r\n   sudo rm -r /etc/postgresql/\r\n   sudo rm -r /etc/postgresql-common/\r\n   sudo rm -r /var/lib/postgresql/\r\n\r\n\r\n   Эти команды удалят каталоги, которые обычно содержат данные и конфигурации PostgreSQL.\r\n\r\n3. Удалите пользователя и группу PostgreSQL:\r\n\r\n\r\n   sudo deluser postgres\r\n   sudo delgroup postgres\r\n\r\n\r\n   Эти команды удалят пользователя и группу PostgreSQL, которые обычно создаются при установке.\r\n\r\nПожалуйста, будьте осторожны при выполнении этих команд, особенно при удалении каталогов и пользователей. Убедитесь, что вы не удаляете что-то важное для вашей системы.	2023-09-26 15:38:08.645396+03	2023-09-26 15:38:08.647565+03	2023-09-26 15:43:49.004765+03	published	posts/950BE3B2-26D5-4ABD-B836-3EF78975052B.jpeg	1	1
+3	Список сайтов где регистрируют бесплатные домены	spisok-sajtov-gde-registriruyut-besplatnyie-domenyi	[Free Dynamic DNS - Managed DNS - Managed Email - Domain Registration - No-IP](https://www.noip.com/)\r\n\r\n[co.vu | Get a Free Domain for your crazy idea](https://codotvu.co/)	2023-09-26 17:06:52.032636+03	2023-09-26 17:06:52.059738+03	2023-09-26 17:06:52.059747+03	published	posts/scale_1200.png	1	4
+\.
+
+
+--
+-- Data for Name: socialaccount_socialaccount; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joined, extra_data, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: socialaccount_socialapp; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.socialaccount_socialapp (id, provider, name, client_id, secret, key) FROM stdin;
+\.
+
+
+--
+-- Data for Name: socialaccount_socialapp_sites; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.socialaccount_socialapp_sites (id, socialapp_id, site_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: socialaccount_socialtoken; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.socialaccount_socialtoken (id, token, token_secret, expires_at, account_id, app_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: taggit_tag; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.taggit_tag (id, name, slug) FROM stdin;
+3	postgresql	postgresql
+4	domain	domain
+5	sites	sites
+6	internet	internet
+7	domainname	domainname
+1	linux	linux
+\.
+
+
+--
+-- Data for Name: taggit_taggeditem; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.taggit_taggeditem (id, object_id, content_type_id, tag_id) FROM stdin;
+1	1	2	1
+2	2	2	3
+3	3	2	4
+4	3	2	5
+5	3	2	6
+6	3	2	7
+\.
+
+
+--
+-- Data for Name: thumbnail_kvstore; Type: TABLE DATA; Schema: public; Owner: kintolayli
+--
+
+COPY public.thumbnail_kvstore (key, value) FROM stdin;
+sorl-thumbnail||image||5d5619f79fb30150811b7d47097bd219	{"name": "posts/i.webp", "storage": "django.core.files.storage.FileSystemStorage", "size": [1344, 742]}
+sorl-thumbnail||image||297999e4cb7a4a79ba4793c07bf5a85a	{"name": "cache/dd/e8/dde867455c9f53d1c47a4cedd277afc5.jpg", "storage": "django.core.files.storage.FileSystemStorage", "size": [960, 339]}
+sorl-thumbnail||thumbnails||5d5619f79fb30150811b7d47097bd219	["297999e4cb7a4a79ba4793c07bf5a85a"]
+sorl-thumbnail||image||a29f7ff56a9440a57af7a9dccc8fa2c0	{"name": "posts/4C7D5DF1-5B6F-4913-9098-9F3B836B0546.jpeg", "storage": "django.core.files.storage.FileSystemStorage", "size": [704, 190]}
+sorl-thumbnail||image||8b8e5bd329d32a2fbdd76d5825bfef54	{"name": "cache/5a/ca/5aca8ba5e85e89780c071d0757140561.jpg", "storage": "django.core.files.storage.FileSystemStorage", "size": [960, 339]}
+sorl-thumbnail||thumbnails||a29f7ff56a9440a57af7a9dccc8fa2c0	["8b8e5bd329d32a2fbdd76d5825bfef54"]
+sorl-thumbnail||image||3075e9f11ead4941bff21a4859206852	{"name": "posts/950BE3B2-26D5-4ABD-B836-3EF78975052B.jpeg", "storage": "django.core.files.storage.FileSystemStorage", "size": [2408, 896]}
+sorl-thumbnail||image||0fa3ce06080f0723ece5178cb4ffaea3	{"name": "cache/7f/a6/7fa6d866595553f0d69f2fd2467b932b.jpg", "storage": "django.core.files.storage.FileSystemStorage", "size": [960, 339]}
+sorl-thumbnail||thumbnails||3075e9f11ead4941bff21a4859206852	["0fa3ce06080f0723ece5178cb4ffaea3"]
+sorl-thumbnail||image||00acfc4beb2f0a7313e9f374eb47500f	{"name": "posts/scale_1200.png", "storage": "django.core.files.storage.FileSystemStorage", "size": [1030, 556]}
+sorl-thumbnail||image||4548ddfc89d6e26b061f4d073fdfb54b	{"name": "cache/15/6c/156c8c543d45cbd2f815e30e620eff8c.jpg", "storage": "django.core.files.storage.FileSystemStorage", "size": [960, 339]}
+sorl-thumbnail||thumbnails||00acfc4beb2f0a7313e9f374eb47500f	["4548ddfc89d6e26b061f4d073fdfb54b"]
+\.
+
+
+--
+-- Name: account_emailaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.account_emailaddress_id_seq', 1, false);
+
+
+--
+-- Name: account_emailconfirmation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.account_emailconfirmation_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 100, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: bookmarks_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.bookmarks_bookmark_id_seq', 1, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 5, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 25, true);
+
+
+--
+-- Name: django_flatpage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_flatpage_id_seq', 1, false);
+
+
+--
+-- Name: django_flatpage_sites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_flatpage_sites_id_seq', 1, false);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 54, true);
+
+
+--
+-- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.django_site_id_seq', 1, true);
+
+
+--
+-- Name: likes_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.likes_like_id_seq', 6, true);
+
+
+--
+-- Name: posts_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.posts_comment_id_seq', 1, true);
+
+
+--
+-- Name: posts_follow_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.posts_follow_id_seq', 1, false);
+
+
+--
+-- Name: posts_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.posts_group_id_seq', 4, true);
+
+
+--
+-- Name: posts_groupfollow_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.posts_groupfollow_id_seq', 1, false);
+
+
+--
+-- Name: posts_post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.posts_post_id_seq', 3, true);
+
+
+--
+-- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.socialaccount_socialaccount_id_seq', 1, false);
+
+
+--
+-- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.socialaccount_socialapp_id_seq', 1, false);
+
+
+--
+-- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.socialaccount_socialapp_sites_id_seq', 1, false);
+
+
+--
+-- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.socialaccount_socialtoken_id_seq', 1, false);
+
+
+--
+-- Name: taggit_tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.taggit_tag_id_seq', 7, true);
+
+
+--
+-- Name: taggit_taggeditem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kintolayli
+--
+
+SELECT pg_catalog.setval('public.taggit_taggeditem_id_seq', 6, true);
+
+
+--
+-- Name: account_emailaddress account_emailaddress_email_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailaddress
+    ADD CONSTRAINT account_emailaddress_email_key UNIQUE (email);
+
+
+--
+-- Name: account_emailaddress account_emailaddress_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailaddress
+    ADD CONSTRAINT account_emailaddress_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: account_emailconfirmation account_emailconfirmation_key_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailconfirmation
+    ADD CONSTRAINT account_emailconfirmation_key_key UNIQUE (key);
+
+
+--
+-- Name: account_emailconfirmation account_emailconfirmation_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailconfirmation
+    ADD CONSTRAINT account_emailconfirmation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: bookmarks_bookmark bookmarks_bookmark_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.bookmarks_bookmark
+    ADD CONSTRAINT bookmarks_bookmark_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_flatpage django_flatpage_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage
+    ADD CONSTRAINT django_flatpage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_flatpage_sites django_flatpage_sites_flatpage_id_site_id_0d29d9d1_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage_sites
+    ADD CONSTRAINT django_flatpage_sites_flatpage_id_site_id_0d29d9d1_uniq UNIQUE (flatpage_id, site_id);
+
+
+--
+-- Name: django_flatpage_sites django_flatpage_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage_sites
+    ADD CONSTRAINT django_flatpage_sites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: django_site django_site_domain_a2e37b91_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_site
+    ADD CONSTRAINT django_site_domain_a2e37b91_uniq UNIQUE (domain);
+
+
+--
+-- Name: django_site django_site_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_site
+    ADD CONSTRAINT django_site_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: likes_like likes_like_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.likes_like
+    ADD CONSTRAINT likes_like_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_comment posts_comment_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_comment
+    ADD CONSTRAINT posts_comment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_follow posts_follow_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_follow
+    ADD CONSTRAINT posts_follow_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_follow posts_follow_user_id_author_id_0fccb1bc_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_follow
+    ADD CONSTRAINT posts_follow_user_id_author_id_0fccb1bc_uniq UNIQUE (user_id, author_id);
+
+
+--
+-- Name: posts_group posts_group_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_group
+    ADD CONSTRAINT posts_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_group posts_group_slug_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_group
+    ADD CONSTRAINT posts_group_slug_key UNIQUE (slug);
+
+
+--
+-- Name: posts_groupfollow posts_groupfollow_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_groupfollow
+    ADD CONSTRAINT posts_groupfollow_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_groupfollow posts_groupfollow_user_id_group_id_def790a8_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_groupfollow
+    ADD CONSTRAINT posts_groupfollow_user_id_group_id_def790a8_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: posts_post posts_post_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_post
+    ADD CONSTRAINT posts_post_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialaccount socialaccount_socialaccount_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialaccount socialaccount_socialaccount_provider_uid_fc810c6e_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_provider_uid_fc810c6e_uniq UNIQUE (provider, uid);
+
+
+--
+-- Name: socialaccount_socialapp_sites socialaccount_socialapp__socialapp_id_site_id_71a9a768_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_socialapp__socialapp_id_site_id_71a9a768_uniq UNIQUE (socialapp_id, site_id);
+
+
+--
+-- Name: socialaccount_socialapp socialaccount_socialapp_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp
+    ADD CONSTRAINT socialaccount_socialapp_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialapp_sites socialaccount_socialapp_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_socialapp_sites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: socialaccount_socialtoken socialaccount_socialtoken_app_id_account_id_fca4e0ac_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_socialtoken_app_id_account_id_fca4e0ac_uniq UNIQUE (app_id, account_id);
+
+
+--
+-- Name: socialaccount_socialtoken socialaccount_socialtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_socialtoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taggit_tag taggit_tag_name_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_tag
+    ADD CONSTRAINT taggit_tag_name_key UNIQUE (name);
+
+
+--
+-- Name: taggit_tag taggit_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_tag
+    ADD CONSTRAINT taggit_tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taggit_tag taggit_tag_slug_key; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_tag
+    ADD CONSTRAINT taggit_tag_slug_key UNIQUE (slug);
+
+
+--
+-- Name: taggit_taggeditem taggit_taggeditem_content_type_id_object_i_4bb97a8e_uniq; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_taggeditem
+    ADD CONSTRAINT taggit_taggeditem_content_type_id_object_i_4bb97a8e_uniq UNIQUE (content_type_id, object_id, tag_id);
+
+
+--
+-- Name: taggit_taggeditem taggit_taggeditem_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_taggeditem
+    ADD CONSTRAINT taggit_taggeditem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: thumbnail_kvstore thumbnail_kvstore_pkey; Type: CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.thumbnail_kvstore
+    ADD CONSTRAINT thumbnail_kvstore_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: account_emailaddress_email_03be32b2_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX account_emailaddress_email_03be32b2_like ON public.account_emailaddress USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: account_emailaddress_user_id_2c513194; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX account_emailaddress_user_id_2c513194 ON public.account_emailaddress USING btree (user_id);
+
+
+--
+-- Name: account_emailconfirmation_email_address_id_5b7f8c58; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX account_emailconfirmation_email_address_id_5b7f8c58 ON public.account_emailconfirmation USING btree (email_address_id);
+
+
+--
+-- Name: account_emailconfirmation_key_f43612bd_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX account_emailconfirmation_key_f43612bd_like ON public.account_emailconfirmation USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: bookmarks_bookmark_content_type_id_0bf50aa4; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX bookmarks_bookmark_content_type_id_0bf50aa4 ON public.bookmarks_bookmark USING btree (content_type_id);
+
+
+--
+-- Name: bookmarks_bookmark_user_id_a26bf17c; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX bookmarks_bookmark_user_id_a26bf17c ON public.bookmarks_bookmark USING btree (user_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_flatpage_sites_flatpage_id_078bbc8b; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_flatpage_sites_flatpage_id_078bbc8b ON public.django_flatpage_sites USING btree (flatpage_id);
+
+
+--
+-- Name: django_flatpage_sites_site_id_bfd8ea84; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_flatpage_sites_site_id_bfd8ea84 ON public.django_flatpage_sites USING btree (site_id);
+
+
+--
+-- Name: django_flatpage_url_41612362; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_flatpage_url_41612362 ON public.django_flatpage USING btree (url);
+
+
+--
+-- Name: django_flatpage_url_41612362_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_flatpage_url_41612362_like ON public.django_flatpage USING btree (url varchar_pattern_ops);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: django_site_domain_a2e37b91_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX django_site_domain_a2e37b91_like ON public.django_site USING btree (domain varchar_pattern_ops);
+
+
+--
+-- Name: likes_like_content_type_id_8ffc2116; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX likes_like_content_type_id_8ffc2116 ON public.likes_like USING btree (content_type_id);
+
+
+--
+-- Name: likes_like_user_id_aae4c421; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX likes_like_user_id_aae4c421 ON public.likes_like USING btree (user_id);
+
+
+--
+-- Name: posts_comment_author_id_795e4d12; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_comment_author_id_795e4d12 ON public.posts_comment USING btree (author_id);
+
+
+--
+-- Name: posts_comment_parent_id_ae76dcba; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_comment_parent_id_ae76dcba ON public.posts_comment USING btree (parent_id);
+
+
+--
+-- Name: posts_comment_post_id_e81436d7; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_comment_post_id_e81436d7 ON public.posts_comment USING btree (post_id);
+
+
+--
+-- Name: posts_follow_author_id_07282e68; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_follow_author_id_07282e68 ON public.posts_follow USING btree (author_id);
+
+
+--
+-- Name: posts_follow_user_id_0b8e2703; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_follow_user_id_0b8e2703 ON public.posts_follow USING btree (user_id);
+
+
+--
+-- Name: posts_group_slug_838831b4_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_group_slug_838831b4_like ON public.posts_group USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: posts_groupfollow_group_id_14b5f0b3; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_groupfollow_group_id_14b5f0b3 ON public.posts_groupfollow USING btree (group_id);
+
+
+--
+-- Name: posts_groupfollow_user_id_72d91d49; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_groupfollow_user_id_72d91d49 ON public.posts_groupfollow USING btree (user_id);
+
+
+--
+-- Name: posts_post_author_id_fe5487bf; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_post_author_id_fe5487bf ON public.posts_post USING btree (author_id);
+
+
+--
+-- Name: posts_post_group_id_c91a8485; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_post_group_id_c91a8485 ON public.posts_post USING btree (group_id);
+
+
+--
+-- Name: posts_post_slug_6e9097e5; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_post_slug_6e9097e5 ON public.posts_post USING btree (slug);
+
+
+--
+-- Name: posts_post_slug_6e9097e5_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX posts_post_slug_6e9097e5_like ON public.posts_post USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: socialaccount_socialaccount_user_id_8146e70c; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX socialaccount_socialaccount_user_id_8146e70c ON public.socialaccount_socialaccount USING btree (user_id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_site_id_2579dee5; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX socialaccount_socialapp_sites_site_id_2579dee5 ON public.socialaccount_socialapp_sites USING btree (site_id);
+
+
+--
+-- Name: socialaccount_socialapp_sites_socialapp_id_97fb6e7d; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX socialaccount_socialapp_sites_socialapp_id_97fb6e7d ON public.socialaccount_socialapp_sites USING btree (socialapp_id);
+
+
+--
+-- Name: socialaccount_socialtoken_account_id_951f210e; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX socialaccount_socialtoken_account_id_951f210e ON public.socialaccount_socialtoken USING btree (account_id);
+
+
+--
+-- Name: socialaccount_socialtoken_app_id_636a42d7; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX socialaccount_socialtoken_app_id_636a42d7 ON public.socialaccount_socialtoken USING btree (app_id);
+
+
+--
+-- Name: taggit_tag_name_58eb2ed9_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_tag_name_58eb2ed9_like ON public.taggit_tag USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: taggit_tag_slug_6be58b2c_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_tag_slug_6be58b2c_like ON public.taggit_tag USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: taggit_taggeditem_content_type_id_9957a03c; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_taggeditem_content_type_id_9957a03c ON public.taggit_taggeditem USING btree (content_type_id);
+
+
+--
+-- Name: taggit_taggeditem_content_type_id_object_id_196cc965_idx; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_taggeditem_content_type_id_object_id_196cc965_idx ON public.taggit_taggeditem USING btree (content_type_id, object_id);
+
+
+--
+-- Name: taggit_taggeditem_object_id_e2d7d1df; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_taggeditem_object_id_e2d7d1df ON public.taggit_taggeditem USING btree (object_id);
+
+
+--
+-- Name: taggit_taggeditem_tag_id_f4f5b767; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX taggit_taggeditem_tag_id_f4f5b767 ON public.taggit_taggeditem USING btree (tag_id);
+
+
+--
+-- Name: thumbnail_kvstore_key_3f850178_like; Type: INDEX; Schema: public; Owner: kintolayli
+--
+
+CREATE INDEX thumbnail_kvstore_key_3f850178_like ON public.thumbnail_kvstore USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: account_emailaddress account_emailaddress_user_id_2c513194_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailaddress
+    ADD CONSTRAINT account_emailaddress_user_id_2c513194_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: account_emailconfirmation account_emailconfirm_email_address_id_5b7f8c58_fk_account_e; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.account_emailconfirmation
+    ADD CONSTRAINT account_emailconfirm_email_address_id_5b7f8c58_fk_account_e FOREIGN KEY (email_address_id) REFERENCES public.account_emailaddress(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: bookmarks_bookmark bookmarks_bookmark_content_type_id_0bf50aa4_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.bookmarks_bookmark
+    ADD CONSTRAINT bookmarks_bookmark_content_type_id_0bf50aa4_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: bookmarks_bookmark bookmarks_bookmark_user_id_a26bf17c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.bookmarks_bookmark
+    ADD CONSTRAINT bookmarks_bookmark_user_id_a26bf17c_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_flatpage_sites django_flatpage_site_flatpage_id_078bbc8b_fk_django_fl; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage_sites
+    ADD CONSTRAINT django_flatpage_site_flatpage_id_078bbc8b_fk_django_fl FOREIGN KEY (flatpage_id) REFERENCES public.django_flatpage(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_flatpage_sites django_flatpage_sites_site_id_bfd8ea84_fk_django_site_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.django_flatpage_sites
+    ADD CONSTRAINT django_flatpage_sites_site_id_bfd8ea84_fk_django_site_id FOREIGN KEY (site_id) REFERENCES public.django_site(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: likes_like likes_like_content_type_id_8ffc2116_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.likes_like
+    ADD CONSTRAINT likes_like_content_type_id_8ffc2116_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: likes_like likes_like_user_id_aae4c421_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.likes_like
+    ADD CONSTRAINT likes_like_user_id_aae4c421_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_comment posts_comment_author_id_795e4d12_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_comment
+    ADD CONSTRAINT posts_comment_author_id_795e4d12_fk_auth_user_id FOREIGN KEY (author_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_comment posts_comment_parent_id_ae76dcba_fk_posts_comment_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_comment
+    ADD CONSTRAINT posts_comment_parent_id_ae76dcba_fk_posts_comment_id FOREIGN KEY (parent_id) REFERENCES public.posts_comment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_comment posts_comment_post_id_e81436d7_fk_posts_post_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_comment
+    ADD CONSTRAINT posts_comment_post_id_e81436d7_fk_posts_post_id FOREIGN KEY (post_id) REFERENCES public.posts_post(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_follow posts_follow_author_id_07282e68_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_follow
+    ADD CONSTRAINT posts_follow_author_id_07282e68_fk_auth_user_id FOREIGN KEY (author_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_follow posts_follow_user_id_0b8e2703_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_follow
+    ADD CONSTRAINT posts_follow_user_id_0b8e2703_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_groupfollow posts_groupfollow_group_id_14b5f0b3_fk_posts_group_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_groupfollow
+    ADD CONSTRAINT posts_groupfollow_group_id_14b5f0b3_fk_posts_group_id FOREIGN KEY (group_id) REFERENCES public.posts_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_groupfollow posts_groupfollow_user_id_72d91d49_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_groupfollow
+    ADD CONSTRAINT posts_groupfollow_user_id_72d91d49_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_post posts_post_author_id_fe5487bf_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_post
+    ADD CONSTRAINT posts_post_author_id_fe5487bf_fk_auth_user_id FOREIGN KEY (author_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: posts_post posts_post_group_id_c91a8485_fk_posts_group_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.posts_post
+    ADD CONSTRAINT posts_post_group_id_c91a8485_fk_posts_group_id FOREIGN KEY (group_id) REFERENCES public.posts_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialtoken socialaccount_social_account_id_951f210e_fk_socialacc; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_social_account_id_951f210e_fk_socialacc FOREIGN KEY (account_id) REFERENCES public.socialaccount_socialaccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialtoken socialaccount_social_app_id_636a42d7_fk_socialacc; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialtoken
+    ADD CONSTRAINT socialaccount_social_app_id_636a42d7_fk_socialacc FOREIGN KEY (app_id) REFERENCES public.socialaccount_socialapp(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialapp_sites socialaccount_social_site_id_2579dee5_fk_django_si; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_social_site_id_2579dee5_fk_django_si FOREIGN KEY (site_id) REFERENCES public.django_site(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialapp_sites socialaccount_social_socialapp_id_97fb6e7d_fk_socialacc; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialapp_sites
+    ADD CONSTRAINT socialaccount_social_socialapp_id_97fb6e7d_fk_socialacc FOREIGN KEY (socialapp_id) REFERENCES public.socialaccount_socialapp(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: socialaccount_socialaccount socialaccount_socialaccount_user_id_8146e70c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.socialaccount_socialaccount
+    ADD CONSTRAINT socialaccount_socialaccount_user_id_8146e70c_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: taggit_taggeditem taggit_taggeditem_content_type_id_9957a03c_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_taggeditem
+    ADD CONSTRAINT taggit_taggeditem_content_type_id_9957a03c_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: taggit_taggeditem taggit_taggeditem_tag_id_f4f5b767_fk_taggit_tag_id; Type: FK CONSTRAINT; Schema: public; Owner: kintolayli
+--
+
+ALTER TABLE ONLY public.taggit_taggeditem
+    ADD CONSTRAINT taggit_taggeditem_tag_id_f4f5b767_fk_taggit_tag_id FOREIGN KEY (tag_id) REFERENCES public.taggit_tag(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

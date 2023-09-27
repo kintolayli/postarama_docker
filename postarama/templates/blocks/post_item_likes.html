@@ -1,0 +1,41 @@
+{% load likes_tags %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-1 col-lg-1 col-md-auto">
+        <div class="row ml-0 mr-0">
+            <div class="col text-center" data-id="{{ post.id }}" data-username={{ post.author.username }} data-action="like" data-type="article">
+                <button type="button" class="btn btn-light"{% if post.likes.likes|user_in:request.user %} disabled {% endif %}title="Нравится">
+                    <span style="color:#bebebe">
+                        {% include "blocks/svg/caret_up_fill.html" %}
+                    </span>
+                </button>
+            </div>
+
+            <div class="col text-center">
+                <h5>
+                    <span style="color:#a2a2a2" data-count="dislike">
+                        {% with post.likes.sum_rating as sum_rating %}
+                            {% if sum_rating > 0 %}
+                                +{{ sum_rating }}
+                            {% else %}
+                                {{ sum_rating }}
+                            {% endif %}
+                        {% endwith %}
+                    </span>
+                </h5>
+            </div>
+
+            <div class="col text-center" data-id="{{ post.id }}" data-username={{ post.author.username }} data-action="dislike" data-type="article">
+                <button type="button" class="btn btn-light"{% if post.likes.dislikes|user_in:request.user %} disabled {% endif %}title="Не нравится">
+                    <span style="color:#bebebe">
+                        {% include "blocks/svg/caret_down_fill.html" %}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-11 col-lg-11 col-md-auto">
+        {% include "blocks/post_item.html" with post=post %}
+    </div>
+</div>

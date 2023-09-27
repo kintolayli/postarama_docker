@@ -1,2 +1,2 @@
-# postarama_docker
-clone repo postarama with setup docker environment
+# postarama
+Мини соц-сеть для обмена контентом

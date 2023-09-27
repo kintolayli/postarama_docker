@@ -1,0 +1,33 @@
+<!-- Форма добавления комментария -->
+{% load user_filters %}
+
+{% if user.is_authenticated %}
+<div class="card my-4">
+{#    <form method="post" action="{% if edit %}{% url 'edit_comment' post.author.username post.id comment.id %}{% else %}{% url "add_comment" post.author.username post.id%}{% endif %}">#}
+
+    {% if edit %}
+        <form method="post" action="{% url 'edit_comment' post.author.username post.id comment.id %}">
+    {% else %}
+        <form method="post" action="{% url "add_comment" post.author.username post.id%}">
+    {% endif %}
+        {% csrf_token %}
+        {% if edit %}
+            <h5 class="card-header text-muted">Редактировать комментарий:</h5>
+        {% else %}
+            <h5 class="card-header text-muted">Добавить комментарий:</h5>
+        {% endif %}
+
+        <div class="card-body">
+            <div class="form-group">
+                {{ form.text|add_class:"form-control" }}
+            </div>
+            {% if edit %}
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a class="btn btn-danger" href="{% url 'delete_comment' post.author.username post.id comment.id %}" role="button">Удалить</a>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endif %}

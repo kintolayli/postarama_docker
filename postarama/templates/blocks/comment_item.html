@@ -1,0 +1,64 @@
+{% load likes_tags %}
+{% load post_tags %}
+{% load pytils_dt %}
+
+{% get_fans item as comment_fans %}
+{% get_haters item as comment_haters %}
+
+<div class="card mb-0 mt-0 shadow-sm">
+    <div class="row justify-content-between" >
+        <div class="col-md-auto">
+            <div class="btn-group">
+                <div data-id="{{ post.id }}" data-comment-id="{{ item.id }}" data-username={{ post.author.username }} data-action="like" data-type="comment">
+                    <button type="button" class="btn btn-sm btn-light"{% if item.likes.likes|user_in:request.user %} disabled {% endif %}title="Нравится">
+                        <span style="color:#949494">
+                            {% include "blocks/svg/caret_up_fill.html" %}
+                        </span>
+                    </button>
+                </div>
+
+                <div class="text-muted btn btn-light btn-sm disabled">
+                    <strong data-count="dislike">
+                        {% with item.likes.sum_rating as likes_count %}
+                            {% if likes_count > 0 %}
+                                +{{ likes_count }}
+                            {% else %}
+                                {{ likes_count }}
+                            {% endif %}
+                        {% endwith %}
+                    </strong>
+                </div>
+
+                <div data-id="{{ post.id }}" data-comment-id="{{ item.id }}" data-username={{ post.author.username }} data-action="dislike" data-type="comment">
+                    <button type="button" class="btn btn-sm btn-light"{% if item.likes.dislikes|user_in:request.user %} disabled {% endif %}title="Не нравится">
+                        <span style="color:#949494">
+                            {% include "blocks/svg/caret_down_fill.html" %}
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <a class="btn btn-sm text-muted" href="{% url 'profile' item.author.username %}" name="comment_{{ item.id }}"><strong class="d-block text-gray-dark">@{{ item.author.username }}</strong></a>
+
+            <!-- Дата публикации комментария -->
+            {% include "blocks/date_of_publication.html" with item=item %}
+        </div>
+
+        <!-- Ссылка на редактирование комментария для автора -->
+        <div class="col-md-auto">
+            {% if request.user == item.author %}
+                <a class="btn text-muted" href="{% url 'edit_comment' post.author.username post.id item.id %}" role="button">
+                    {% include "blocks/svg/pencil square.html" %}
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- Текст комментария -->
+    <div class="card-body">
+        <div class="card-text">
+        {{ item.text | linebreaksbr }}
+        </div>
+    </div>
+</div>

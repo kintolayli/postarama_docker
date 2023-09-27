@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load user_filters %}
+{% load likes_tags %}
+{% load pytils_numeral %}
+
+{% block title %}Поиск{% endblock %}
+{% block content %}
+    <div class="container-md">
+        <div class="row">
+            <div class="col-xl-1 col-lg-1 col-md-auto">
+            </div>
+
+            <div class="col-xl-11 col-lg-11 col-md-auto">
+                {% if query %}
+                    <h3 class="text-muted">Публикации, содержащие запрос "{{ query }}"</h3>
+                    <h4 class="text-muted">
+                        {% with results.count as total_results %}
+                            {{ total_results|get_plural:"результат,результата,результатов,результатов" }}:
+                        {% endwith %}
+                    </h4>
+
+                    {% for post in results %}
+                        <div class="card mb-3 mt-1 shadow-sm">
+                            {% include "blocks/post_header.html" with post=post %}
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {{ post.text|truncatewords_html:5 }}
+                                </p>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>По вашему запросу ничего не найдено.</p>
+                    {% endfor %}
+{#                    <p><a href="{% url 'post_search' %}">Искать снова</a></p>#}
+                {% else %}
+                    <div class="card mb-3 mt-1 shadow-sm">
+                        <div class="container">
+                            <form method="get">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            {% for field in form %}
+                                                {{ field|add_class:"form-control" }}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="submit" value="Искать" class="btn btn-primary">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if page.has_other_pages %}
+            {% include "blocks/paginator.html" with items=page paginator=paginator%}
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+

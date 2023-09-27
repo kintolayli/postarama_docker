@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} {{ flatpage.title }} {% endblock %}
+{% block content %}
+
+<div class="container-md pb-5 pt-2 m-auto pr-0 pl-0 mr-0 ml-0">
+    <div class="card mb-1 mt-1 shadow-sm">
+        <div class="card-header">{{ flatpage.title }}</div>
+
+        <div class="card-body">
+            <p class="card-text">
+                {{ flatpage.content }}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

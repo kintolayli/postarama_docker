@@ -1,0 +1,17 @@
+<a href="http://vk.com/share.php?url=http:/{% url 'news:index' %}/{{ news.get_absolute_url }}"
+   target="_blank" rel="nofollow">
+    <img src="/media/social_share/vk-social-logotype_318-65222.jpg">
+   </a>
+   <a href="https://twitter.com/share?url={% url 'news:index' %} + /{{ news.get_absolute_url }}"
+   target="_blank" rel="nofollow">
+      <img src="/media/social_share/twitter-logo-on-black-background_318-76332.jpg">
+   </a>
+   <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'news:index' %}/{{ news.get_absolute_url }}"
+   target="_blank" rel="nofollow">
+      <img src="/media/social_share/facebook-logo_318-49940.jpg">
+   </a>
+   <a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl={% url 'news:index' %}/{{ news.get_absolute_url
+   }}"
+   target="_blank" rel="nofollow">
+      <img src="/media/social_share/odnoklassniki-logo_318-65358.jpg">
+   </a>

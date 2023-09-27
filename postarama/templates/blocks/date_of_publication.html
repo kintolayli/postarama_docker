@@ -1,0 +1,13 @@
+{% load post_tags %}
+{% load pytils_dt %}
+
+<a class="btn btn-light text-muted disabled">
+    <small>
+{#        {%  if item.updated|date:"U" == item.created|date:"U" %}#}
+{#            {{ item.created|date:"U"|str_to_int|distance_of_time:1 }}#}
+{#        {% else %}#}
+{#            <em>отредактировано </em>{{ item.created|date:"U"|str_to_int|distance_of_time:1 }}#}
+{#        {% endif %}#}
+    {{ item.created|date:"U"|str_to_int|distance_of_time:1 }}
+    </small>
+</a>
