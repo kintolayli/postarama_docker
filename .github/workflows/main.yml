@@ -69,8 +69,11 @@ jobs:
           script: |
             # Выполняет pull образа с DockerHub
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PROJECT_NAME }}
+            
             #остановка всех контейнеров
             docker compose stop
+            
+            #запуск контейнеров
             docker-compose up -d --build
   send_message:
     runs-on: ubuntu-latest
