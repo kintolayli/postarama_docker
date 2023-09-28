@@ -79,7 +79,17 @@ jobs:
             cd ~
             cd ../home/
             
+            echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
+            
             echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
+            echo DJANGO_ALLOWED_HOSTS=${{ vars.DJANGO_ALLOWED_HOSTS }} >> .env
+            echo DEBUG_VALUE=${{ vars.DEBUG_VALUE }} >> .env
+            echo EMAIL_HOST=${{ vars.EMAIL_HOST }} >> .env
+            echo EMAIL_HOST_USER=${{ vars.EMAIL_HOST_USER }} >> .env
+            echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
+            echo EMAIL_PORT=${{ vars.EMAIL_PORT }} >> .env
+            echo EMAIL_TO=${{ vars.EMAIL_TO }} >> .env
+            
             echo VK_CLIENT_ID=${{ secrets.VK_CLIENT_ID }} >> .env
             echo VK_SECRET=${{ secrets.VK_SECRET }} >> .env
             echo VK_KEY=${{ secrets.VK_KEY }} >> .env
@@ -90,17 +100,7 @@ jobs:
             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            
-            echo DJANGO_ALLOWED_HOSTS=${{ vars.DJANGO_ALLOWED_HOSTS }} >> .env
-            echo DEBUG_VALUE=${{ vars.DEBUG_VALUE }} >> .env
-            echo EMAIL_HOST=${{ vars.EMAIL_HOST }} >> .env
-            echo EMAIL_HOST_USER=${{ vars.EMAIL_HOST_USER }} >> .env
-            echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
-            echo EMAIL_PORT=${{ vars.EMAIL_PORT }} >> .env
-            echo EMAIL_TO=${{ vars.EMAIL_TO }} >> .env
-
-            echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
-            
+                        
             docker-compose up -d
 
   send_message:
