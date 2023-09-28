@@ -1,7 +1,9 @@
 # .github/workflows/**main.yml**
-name: Django-app workflow
+name: Postarama workflow
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   tests:
@@ -71,14 +73,35 @@ jobs:
             # Выполняет pull образа с DockerHub
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PROJECT_NAME }}
             
-            #остановка всех контейнеров
             docker compose stop
+            docker-compose rm web
             
             cd ~
             cd ../home/
             
-            #запуск контейнеров
-            docker-compose up -d --build
+            echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
+            echo VK_CLIENT_ID=${{ secrets.VK_CLIENT_ID }} >> .env
+            echo VK_SECRET=${{ secrets.VK_SECRET }} >> .env
+            echo VK_KEY=${{ secrets.VK_KEY }} >> .env
+            
+            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
+            echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+            
+            echo DJANGO_ALLOWED_HOSTS=${{ vars.DJANGO_ALLOWED_HOSTS }} >> .env
+            echo DEBUG_VALUE=${{ vars.DEBUG_VALUE }} >> .env
+            echo EMAIL_HOST=${{ vars.EMAIL_HOST }} >> .env
+            echo EMAIL_HOST_USER=${{ vars.EMAIL_HOST_USER }} >> .env
+            echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
+            echo EMAIL_PORT=${{ vars.EMAIL_PORT }} >> .env
+            echo EMAIL_TO=${{ vars.EMAIL_TO }} >> .env
+
+            echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
+            
+            docker-compose up -d
 
   send_message:
     runs-on: ubuntu-latest
