@@ -74,7 +74,8 @@ jobs:
             #остановка всех контейнеров
             docker compose stop
             
-            cd home/
+            cd ~
+            cd ../home/
             
             #запуск контейнеров
             docker-compose up -d --build
