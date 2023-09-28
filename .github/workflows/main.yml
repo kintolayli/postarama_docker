@@ -76,6 +76,7 @@ jobs:
             
             #запуск контейнеров
             docker-compose up -d --build
+
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
