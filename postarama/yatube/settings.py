@@ -36,7 +36,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = strtobool(os.getenv("DEBUG_VALUE"))
+# DEBUG = strtobool(os.getenv("DEBUG_VALUE"))
+DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
@@ -69,6 +70,7 @@ INSTALLED_APPS = [
     "pytils",
     "django_extensions",
     "feedback",
+    "about",
 ]
 
 # Provider specific settings
@@ -178,7 +180,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 TEMPLATE_DIRS = ["static"]
 
