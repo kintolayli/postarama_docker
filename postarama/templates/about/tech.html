@@ -6,42 +6,29 @@
 <div class="container-md pb-5 pt-2 m-auto pr-0 pl-0 mr-0 ml-0">
     <div class="card mb-1 mt-1 shadow-sm">
         <div class="card-header">
-            <h1>Вот что я умею</h1>
+            <h1>Используемые технологии:</h1>
         </div>
 
-        <div class="card-body">
-            <p class="card-text">
 
-                {% comment %} Колонки с отступом сверху и снизу {% endcomment %}
-                <div class="row">
 
-                  {% comment %}
-                    Боковой блок со списком технологий
-                    Займет всю ширину блока на мобильном
-                    и 25% при размерах экрана ≥768px
-                  {% endcomment %}
+            <div class="py-5 text-center container">
 
-                  <aside class="col-12 col-md-3">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        Python
-                      </li>
-                      <li class="list-group-item">
-                        Django
-                      </li>
-                    </ul>
-                  </aside>
-
-                  {% comment %}
-                    Статья
-                    Займет всю ширину блока на мобильном
-                    и 75% при размерах экрана ≥768px
-                  {% endcomment %}
-                  <article class="col-12 col-md-9">
-                    <p>Текст страницы "Технологии"</p>
-                  </article>
+                <div class="col-md-8 text-center container" >
+                    {% for tech in techs %}
+                        {% include "about/tech_block.html" with tech=tech %}
+                    {% endfor %}
                 </div>
 
+            </div>
+
+
+
+        <p class="card-text">
+        <div class="col-12 col-md-9">
+            <p>"Облако" технологий, которые иcпользовались в этом проекте и которыми я владею в той или иной степени.</p>
+        </div>
+
+        </div>
             </p>
         </div>
     </div>

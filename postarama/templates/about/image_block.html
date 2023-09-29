@@ -1,0 +1,9 @@
+  {% load thumbnail %}
+  {% thumbnail img.image "500x500" crop="center" upscale=True as im %}
+      <!-- Magnific Popup -->
+      {% thumbnail img.image "1000x1000" crop="center" upscale=True as im_crop %}
+      <a class="image-popup-vertical-fit" style="cursor: zoom-in;" href="{{ MEDIA_URL }}{{ im_crop.url }}" title="{{ img.name }}">
+          <img class="card-img" src="{{ im.url }}" alt="{{ im.name }}">
+      </a>
+      {% endthumbnail %}
+  {% endthumbnail %}

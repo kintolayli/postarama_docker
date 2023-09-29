@@ -6,7 +6,6 @@ from django.urls import include, path
 from django.views.static import serve
 from markdownx import urls as markdownx
 
-
 handler404 = "posts.views.page_not_found"  # noqa
 handler500 = "posts.views.server_error"  # noqa
 
@@ -18,7 +17,7 @@ urlpatterns = [
     path("", include("posts.urls")),
     path("", include("likes.urls")),
     path("", include("bookmarks.urls")),
-    path('about/', include('about.urls', namespace='about')),
+    path("about/", include("about.urls", namespace="about")),
 ]
 
 
@@ -29,10 +28,8 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns += (path("__debug__/", include(debug_toolbar.urls)),)
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 else:
     urlpatterns += [
         url(

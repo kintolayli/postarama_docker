@@ -36,8 +36,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = strtobool(os.getenv("DEBUG_VALUE"))
-DEBUG = True
+DEBUG = strtobool(os.getenv("DEBUG_VALUE"))
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
@@ -125,13 +124,13 @@ WSGI_APPLICATION = "yatube.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT')
+    "default": {
+        "ENGINE": os.getenv("DB_ENGINE", default="django.db.backends.postgresql"),
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
 

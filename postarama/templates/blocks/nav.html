@@ -13,6 +13,7 @@
 
         <div class="collapse navbar-collapse" id="navbarsExample07XL">
             {% if user.is_authenticated %}
+
                 <form class="form-inline" action="{% url "post_search" %}" method="get">
                     <input name="query" class="form-control" type="text" placeholder="Найти" aria-label="Поиск">
                 </form>
