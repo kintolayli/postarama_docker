@@ -75,10 +75,7 @@ jobs:
             
             docker compose stop
             docker-compose rm web
-            
-            cd ~
-            cd ../home/
-            
+                        
             echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
             
             echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
